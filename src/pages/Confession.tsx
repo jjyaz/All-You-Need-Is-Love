@@ -116,7 +116,7 @@ const Confession = () => {
           ▓▓▓ INTERCEPTED SIGNAL ▓▓▓
         </div>
         <p className="font-mono text-xs tracking-[0.5em] text-muted-foreground mb-4">
-          TRANSMISSION 004
+          TRANSMISSION 003
         </p>
         <h1 className="text-3xl md:text-5xl font-serif tracking-wider text-glow">
           <GlitchText text="THE CONFESSION" as="span" intensity="medium" />
