@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CrypticNav from "./components/CrypticNav";
 import ScreenTear from "./components/ScreenTear";
 import TransmissionOverlay from "./components/TransmissionOverlay";
+import CursorTrail from "./components/CursorTrail";
 import Gateway from "./pages/Gateway";
 import Manifesto from "./pages/Manifesto";
 import Artifacts from "./pages/Artifacts";
@@ -23,6 +24,7 @@ const App = () => (
         <CrypticNav />
         <ScreenTear />
         <TransmissionOverlay />
+        <CursorTrail />
         <Routes>
           <Route path="/" element={<Gateway />} />
           <Route path="/manifesto" element={<Manifesto />} />

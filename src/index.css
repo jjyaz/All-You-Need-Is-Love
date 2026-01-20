@@ -60,12 +60,18 @@
 
   html {
     scroll-behavior: smooth;
+    cursor: none;
   }
 
   body {
     @apply bg-background text-foreground;
     font-family: 'Times New Roman', serif;
     overflow-x: hidden;
+    cursor: none;
+  }
+
+  a, button, [role="button"], input, textarea, select {
+    cursor: none;
   }
 
   /* Film grain overlay */
