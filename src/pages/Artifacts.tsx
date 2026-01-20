@@ -83,7 +83,7 @@ const Artifacts = () => {
       {/* Header */}
       <div className="mb-24 text-center">
         <p className="font-mono text-xs tracking-[0.5em] text-muted-foreground mb-4">
-          TRANSMISSION 003
+          TRANSMISSION 004
         </p>
         <h1 className="text-3xl md:text-5xl font-serif tracking-wider text-glow">
           <GlitchText text="THE ARTIFACTS" as="span" intensity="medium" />
