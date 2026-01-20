@@ -6,7 +6,8 @@ import GlitchText from './GlitchText';
 const navItems = [
   { path: '/', label: 'THE GATEWAY', cryptic: '01.ENTER' },
   { path: '/manifesto', label: 'THE MANIFESTO', cryptic: '02.TRUTH' },
-  { path: '/artifacts', label: 'THE ARTIFACTS', cryptic: '03.REMNANTS' },
+  { path: '/confession', label: 'THE CONFESSION', cryptic: '03.SIGNAL' },
+  { path: '/artifacts', label: 'THE ARTIFACTS', cryptic: '04.REMNANTS' },
 ];
 
 const CrypticNav = () => {

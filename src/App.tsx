@@ -12,6 +12,7 @@ import EntityIdentityDisplay from "./components/EntityIdentityDisplay";
 import SecretRevealed from "./components/SecretRevealed";
 import Gateway from "./pages/Gateway";
 import Manifesto from "./pages/Manifesto";
+import Confession from "./pages/Confession";
 import Artifacts from "./pages/Artifacts";
 import Archive from "./pages/Archive";
 import NotFound from "./pages/NotFound";
@@ -34,6 +35,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Gateway />} />
           <Route path="/manifesto" element={<Manifesto />} />
+          <Route path="/confession" element={<Confession />} />
           <Route path="/artifacts" element={<Artifacts />} />
           <Route path="/archive" element={<Archive />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

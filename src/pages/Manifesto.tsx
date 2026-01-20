@@ -133,11 +133,11 @@ const Manifesto = () => {
       {/* Navigation to next */}
       <div className="mt-32 text-center">
         <Link 
-          to="/artifacts"
+          to="/confession"
           className="inline-block group relative px-8 py-4 border border-foreground/20 hover:border-accent/50 transition-all duration-500 distort"
         >
           <span className="font-mono text-xs tracking-[0.3em] text-foreground/60 group-hover:text-accent transition-colors">
-            VIEW THE ARTIFACTS →
+            INTERCEPT THE CONFESSION →
           </span>
           <span className="absolute bottom-0 left-0 w-0 h-px bg-accent group-hover:w-full transition-all duration-500" />
         </Link>
