@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useEntityIdentity } from './useEntityIdentity';
 
 export type ReactionType = 'RESONATE' | 'CORRUPT' | 'STATIC' | 'LOVE' | 'VOID';
 
@@ -42,6 +43,8 @@ const generateCollectiveCounts = (): Record<ReactionType, number> => ({
 export const useReactions = () => {
   const [reactions, setReactions] = useState<ReactionStore>({});
   const [reactionSequence, setReactionSequence] = useState<Array<{ contentId: string; reaction: ReactionType }>>([]);
+  const { signAndRecordInteraction } = useEntityIdentity();
+  const signInteractionRef = useRef(signAndRecordInteraction);
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -111,6 +114,9 @@ export const useReactions = () => {
       localStorage.setItem(SEQUENCE_KEY, JSON.stringify(newSequence));
       return newSequence;
     });
+
+    // Sign this reaction to the entity's fingerprint chain
+    signInteractionRef.current?.('REACTION', `${contentId}:${reaction}`);
   }, []);
 
   const getTotalSignals = useCallback((): number => {
