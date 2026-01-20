@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import GlitchText from '@/components/GlitchText';
+import ReactionBar from '@/components/ReactionBar';
+import CollectiveConsciousness from '@/components/CollectiveConsciousness';
 import { cn } from '@/lib/utils';
 
 const manifestoSections = [
@@ -113,6 +115,9 @@ const Manifesto = () => {
               {section.content}
             </p>
 
+            {/* Reaction bar */}
+            <ReactionBar contentId={`manifesto-${index}`} />
+
             {/* Decorative line */}
             {!section.isAxiom && (
               <div className={cn(
@@ -138,11 +143,9 @@ const Manifesto = () => {
         </Link>
       </div>
 
-      {/* Scattered cryptic text */}
-      <div className="fixed bottom-6 right-6 font-mono text-[10px] text-muted-foreground/20 text-right hidden lg:block">
-        <p>DECRYPTION: PARTIAL</p>
-        <p>FRAGMENTS: {visibleSections.length}/{manifestoSections.length}</p>
-        <p>SECRETS: {revealedSecrets.length}</p>
+      {/* Collective Consciousness */}
+      <div className="fixed bottom-6 right-6 hidden lg:block">
+        <CollectiveConsciousness compact />
       </div>
     </div>
   );
