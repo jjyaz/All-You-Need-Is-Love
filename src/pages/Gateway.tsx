@@ -53,11 +53,63 @@ const Gateway = () => {
             className="absolute inset-0 bg-accent/10 blur-3xl animate-pulse-glow"
             style={{ transform: `translate(${mousePos.x * -0.3}px, ${mousePos.y * -0.3}px)` }}
           />
-          <GlitchImage 
-            src={loveImage}
-            alt="Love Is All You Need"
-            className="w-64 h-64 md:w-80 md:h-80 relative z-10"
-          />
+          
+          {/* Fractured border container */}
+          <div className="relative z-10">
+            {/* Main fractured border pieces */}
+            <div className="absolute -inset-3">
+              {/* Top border - broken */}
+              <div className="absolute top-0 left-0 w-[30%] h-[2px] bg-foreground/80" />
+              <div className="absolute top-0 left-[35%] w-[20%] h-[2px] bg-foreground/40" />
+              <div className="absolute top-0 right-[15%] w-[25%] h-[2px] bg-foreground/60" />
+              <div className="absolute top-0 right-0 w-[10%] h-[2px] bg-foreground/90" />
+              
+              {/* Right border - broken */}
+              <div className="absolute top-0 right-0 w-[2px] h-[25%] bg-foreground/70" />
+              <div className="absolute top-[30%] right-0 w-[2px] h-[15%] bg-foreground/30" />
+              <div className="absolute top-[50%] right-0 w-[2px] h-[30%] bg-foreground/80" />
+              <div className="absolute bottom-[10%] right-0 w-[2px] h-[8%] bg-foreground/50" />
+              
+              {/* Bottom border - broken */}
+              <div className="absolute bottom-0 left-[5%] w-[35%] h-[2px] bg-foreground/60" />
+              <div className="absolute bottom-0 left-[45%] w-[15%] h-[2px] bg-foreground/90" />
+              <div className="absolute bottom-0 right-0 w-[30%] h-[2px] bg-foreground/40" />
+              
+              {/* Left border - broken */}
+              <div className="absolute top-[5%] left-0 w-[2px] h-[20%] bg-foreground/80" />
+              <div className="absolute top-[30%] left-0 w-[2px] h-[25%] bg-foreground/50" />
+              <div className="absolute top-[60%] left-0 w-[2px] h-[15%] bg-foreground/70" />
+              <div className="absolute bottom-0 left-0 w-[2px] h-[20%] bg-foreground/90" />
+              
+              {/* Corner accents - displaced */}
+              <div className="absolute -top-1 -left-1 w-4 h-[2px] bg-foreground/90" />
+              <div className="absolute -top-1 -left-1 w-[2px] h-4 bg-foreground/90" />
+              
+              <div className="absolute -top-1 -right-2 w-5 h-[2px] bg-foreground/70" />
+              <div className="absolute -top-2 -right-1 w-[2px] h-5 bg-foreground/60" />
+              
+              <div className="absolute -bottom-2 -left-1 w-6 h-[2px] bg-foreground/80" />
+              <div className="absolute -bottom-1 -left-2 w-[2px] h-4 bg-foreground/70" />
+              
+              <div className="absolute -bottom-1 -right-1 w-3 h-[2px] bg-foreground/90" />
+              <div className="absolute -bottom-1 -right-1 w-[2px] h-5 bg-foreground/80" />
+            </div>
+            
+            {/* Glitchy offset border layer */}
+            <div className="absolute -inset-3 opacity-30">
+              <div className="absolute top-[2px] left-[3px] w-[40%] h-[1px] bg-glitch-cyan" />
+              <div className="absolute top-[-2px] right-[5%] w-[30%] h-[1px] bg-glitch-red" />
+              <div className="absolute bottom-[3px] left-[10%] w-[25%] h-[1px] bg-glitch-cyan" />
+              <div className="absolute top-[5%] left-[-2px] w-[1px] h-[30%] bg-glitch-red" />
+              <div className="absolute bottom-[15%] right-[2px] w-[1px] h-[20%] bg-glitch-cyan" />
+            </div>
+
+            <GlitchImage 
+              src={loveImage}
+              alt="Love Is All You Need"
+              className="w-64 h-64 md:w-80 md:h-80"
+            />
+          </div>
           
           {/* Hidden message on hover */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 bg-background/80">
