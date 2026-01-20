@@ -7,6 +7,7 @@ import CrypticNav from "./components/CrypticNav";
 import ScreenTear from "./components/ScreenTear";
 import TransmissionOverlay from "./components/TransmissionOverlay";
 import CursorTrail from "./components/CursorTrail";
+import AmbientAudioController from "./components/AmbientAudioController";
 import Gateway from "./pages/Gateway";
 import Manifesto from "./pages/Manifesto";
 import Artifacts from "./pages/Artifacts";
@@ -21,6 +22,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <AmbientAudioController />
         <CrypticNav />
         <ScreenTear />
         <TransmissionOverlay />
