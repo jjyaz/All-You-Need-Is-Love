@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GlitchText from '@/components/GlitchText';
 import GlitchImage from '@/components/GlitchImage';
+import ReactionBar from '@/components/ReactionBar';
+import CollectiveConsciousness from '@/components/CollectiveConsciousness';
 import loveImage from '@/assets/love.jpg';
 import { cn } from '@/lib/utils';
 
@@ -176,6 +178,11 @@ const Artifacts = () => {
             <div className="absolute top-4 right-4 font-mono text-[10px] text-foreground/20">
               /{String(artifact.id).padStart(2, '0')}
             </div>
+
+            {/* Reaction bar - positioned at bottom */}
+            <div className="absolute bottom-2 left-2 right-2 z-10" onClick={(e) => e.stopPropagation()}>
+              <ReactionBar contentId={`artifact-${artifact.id}`} />
+            </div>
           </div>
         ))}
       </div>
@@ -201,11 +208,9 @@ const Artifacts = () => {
         </div>
       )}
 
-      {/* Footer hint */}
-      <div className="fixed bottom-6 left-6 font-mono text-[10px] text-muted-foreground/20 hidden lg:block">
-        <p>ARTIFACTS RECOVERED: {artifacts.length}</p>
-        <p>STATUS: FRAGMENTED</p>
-        <p className="text-accent/40">HINT: SOME THINGS HIDE IN SEQUENCE</p>
+      {/* Collective Consciousness */}
+      <div className="fixed bottom-6 right-6 hidden lg:block">
+        <CollectiveConsciousness />
       </div>
     </div>
   );
