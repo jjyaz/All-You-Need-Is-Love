@@ -15,6 +15,7 @@ import Manifesto from "./pages/Manifesto";
 import Confession from "./pages/Confession";
 import Artifacts from "./pages/Artifacts";
 import Archive from "./pages/Archive";
+import Witness from "./pages/Witness";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/confession" element={<Confession />} />
           <Route path="/artifacts" element={<Artifacts />} />
           <Route path="/archive" element={<Archive />} />
+          <Route path="/witness" element={<Witness />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
