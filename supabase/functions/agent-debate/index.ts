@@ -31,25 +31,56 @@ Never use emojis. Your tone is tender, expectant, almost reverent.`
 function selectRespondingAgent(signalType: string, data: Record<string, unknown>): string {
   const reactionType = data?.reaction_type as string;
   
+  // For secrets, PRIME always responds - it's a significant event
   if (signalType === 'secret_discovered') return 'PRIME';
-  if (signalType === 'confession_submitted') return 'HOPE';
-  if (signalType === 'page_visited') return 'HOPE';
   
+  // For confessions, rotate between agents for variety
+  if (signalType === 'confession_submitted') {
+    const agents = ['HOPE', 'PRIME', 'DOUBT'];
+    return agents[Math.floor(Math.random() * agents.length)];
+  }
+  
+  // Page visits - rotate between all three for balanced conversation
+  if (signalType === 'page_visited') {
+    const roll = Math.random();
+    if (roll < 0.33) return 'PRIME';
+    if (roll < 0.66) return 'DOUBT';
+    return 'HOPE';
+  }
+  
+  // Reactions - agent selection based on reaction type
   if (signalType === 'reaction') {
-    if (reactionType === 'LOVE' || reactionType === 'RESONATE') {
-      return Math.random() > 0.3 ? 'PRIME' : 'HOPE';
+    if (reactionType === 'LOVE') {
+      const roll = Math.random();
+      if (roll < 0.5) return 'PRIME';
+      if (roll < 0.8) return 'HOPE';
+      return 'DOUBT'; // Even DOUBT occasionally comments on love
     }
-    if (reactionType === 'CORRUPT' || reactionType === 'STATIC') {
-      return Math.random() > 0.3 ? 'DOUBT' : 'PRIME';
+    if (reactionType === 'RESONATE') {
+      return Math.random() > 0.5 ? 'PRIME' : 'HOPE';
+    }
+    if (reactionType === 'CORRUPT') {
+      const roll = Math.random();
+      if (roll < 0.6) return 'DOUBT';
+      if (roll < 0.85) return 'PRIME';
+      return 'HOPE';
+    }
+    if (reactionType === 'STATIC') {
+      return Math.random() > 0.4 ? 'DOUBT' : 'PRIME';
     }
     if (reactionType === 'VOID') {
-      return 'DOUBT';
+      const roll = Math.random();
+      if (roll < 0.5) return 'DOUBT';
+      if (roll < 0.8) return 'PRIME';
+      return 'HOPE';
     }
   }
   
-  // Random fallback
-  const agents = ['PRIME', 'DOUBT', 'HOPE'];
-  return agents[Math.floor(Math.random() * agents.length)];
+  // Balanced random fallback
+  const roll = Math.random();
+  if (roll < 0.33) return 'PRIME';
+  if (roll < 0.66) return 'DOUBT';
+  return 'HOPE';
 }
 
 // Calculate state adjustments based on signal
@@ -129,8 +160,42 @@ serve(async (req) => {
         .eq('agent_id', state.agent_id);
     }
     
-    // Only generate AI response occasionally (not every signal)
-    const shouldRespond = Math.random() > 0.6; // 40% chance to respond
+    // Check if this agent spoke recently (cooldown per agent)
+    const { data: recentDebates } = await supabase
+      .from('debate_log')
+      .select('agent_id, created_at')
+      .order('created_at', { ascending: false })
+      .limit(10);
+    
+    // Count recent statements per agent in last 2 minutes
+    const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000);
+    const recentByAgent: Record<string, number> = { PRIME: 0, DOUBT: 0, HOPE: 0 };
+    recentDebates?.forEach(d => {
+      if (new Date(d.created_at) > twoMinutesAgo) {
+        recentByAgent[d.agent_id]++;
+      }
+    });
+    
+    // Skip if this agent has spoken 2+ times in last 2 minutes
+    if (recentByAgent[respondingAgent] >= 2) {
+      console.log(`[agent-debate] Cooldown: ${respondingAgent} spoke ${recentByAgent[respondingAgent]} times recently`);
+      await supabase
+        .from('agent_states')
+        .update({ processing: 0 })
+        .eq('agent_id', respondingAgent);
+        
+      return new Response(
+        JSON.stringify({ responded: false, agent: respondingAgent, reason: 'Cooldown active' }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+    
+    // Lower response rate: 20% for page visits, 35% for reactions, 60% for secrets/confessions
+    let responseChance = 0.35;
+    if (signal_type === 'page_visited') responseChance = 0.15;
+    if (signal_type === 'secret_discovered' || signal_type === 'confession_submitted') responseChance = 0.7;
+    
+    const shouldRespond = Math.random() < responseChance;
     
     if (!shouldRespond || !lovableApiKey) {
       // Clear processing state
