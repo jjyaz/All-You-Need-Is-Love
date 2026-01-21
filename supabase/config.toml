@@ -1,0 +1,7 @@
+project_id = "jqrnhcrdbygwmpjzqpha"
+
+[functions.collective-memory]
+verify_jwt = false
+
+[functions.agent-debate]
+verify_jwt = false

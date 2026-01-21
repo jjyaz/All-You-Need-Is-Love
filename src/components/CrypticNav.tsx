@@ -8,6 +8,7 @@ const navItems = [
   { path: '/manifesto', label: 'THE MANIFESTO', cryptic: '02.TRUTH' },
   { path: '/confession', label: 'THE CONFESSION', cryptic: '03.SIGNAL' },
   { path: '/artifacts', label: 'THE ARTIFACTS', cryptic: '04.REMNANTS' },
+  { path: '/witness', label: 'THE WITNESS', cryptic: '05.OBSERVE' },
 ];
 
 const CrypticNav = () => {
