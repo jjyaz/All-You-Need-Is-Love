@@ -14,12 +14,19 @@ const Witness = () => {
   const { entity } = useEntityIdentity();
   const integrityScore = entity?.fingerprint?.integrityScore || 100;
 
+  const hasReportedVisit = useState(false);
+
   useEffect(() => {
     setTimeout(() => setLoaded(true), 300);
-    
-    // Report page visit
-    addSignal('page_visited', '/witness');
-  }, [addSignal]);
+  }, []);
+
+  // Report page visit only once
+  useEffect(() => {
+    if (!hasReportedVisit[0] && entity?.fingerprint?.publicKey) {
+      hasReportedVisit[1](true);
+      addSignal('page_visited', '/witness');
+    }
+  }, [entity?.fingerprint?.publicKey, addSignal, hasReportedVisit]);
 
   // Default agent states if not loaded
   const agentStates = stats?.agentStates || [
