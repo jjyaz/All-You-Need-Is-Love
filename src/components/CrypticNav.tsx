@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import GlitchText from './GlitchText';
+import { toast } from '@/hooks/use-toast';
 
 const navItems = [
   { path: '/', label: 'THE GATEWAY', cryptic: '01.ENTER' },
@@ -11,19 +12,37 @@ const navItems = [
   { path: '/witness', label: 'THE WITNESS', cryptic: '05.OBSERVE' },
 ];
 
+const CONTRACT_ADDRESS = "HfHT7mxHGanJADKwVKoznri2KVeuUUPmSfK6HBeBpump";
+
 const CrypticNav = () => {
   const location = useLocation();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  const handleContractClick = () => {
+    navigator.clipboard.writeText(CONTRACT_ADDRESS);
+    toast({
+      title: "CONTRACT ADDRESS",
+      description: CONTRACT_ADDRESS,
+    });
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 mix-blend-difference">
       <div className="flex justify-between items-center px-6 md:px-12 py-6">
-        <Link 
-          to="/" 
-          className="font-mono text-xs tracking-[0.3em] text-foreground/60 hover:text-foreground transition-colors distort"
-        >
-          L.I.A.Y.N
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link 
+            to="/" 
+            className="font-mono text-xs tracking-[0.3em] text-foreground/60 hover:text-foreground transition-colors distort"
+          >
+            L.I.A.Y.N
+          </Link>
+          <button
+            onClick={handleContractClick}
+            className="font-mono text-[10px] tracking-[0.2em] text-foreground/40 hover:text-foreground transition-colors border border-foreground/20 hover:border-foreground/60 px-2 py-1 distort"
+          >
+            CA
+          </button>
+        </div>
         
         <div className="flex gap-8 md:gap-12">
           {navItems.map((item, index) => (
